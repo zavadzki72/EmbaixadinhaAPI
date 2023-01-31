@@ -22,11 +22,8 @@ jobs:
           dotnet-version: '7.x'
           include-prerelease: true
 
-      - name: Cd root project
-        run: cd .\Embaixadinha\
-
       - name: Build with dotnet
-        run: dotnet build --configuration Release
+        run: dotnet build --configuration Release .\Embaixadinha.API\
 
       - name: dotnet publish
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
