@@ -21,13 +21,13 @@ namespace Embaixadinha.Services
         {
             var query = (
                 from s in _applicationContext.Set<Score>().Include(x => x.Player)
-                orderby s.Value descending, s.Created_At descending
+                group s by s.PlayerId into sGroup
                 select new PlayerWithBestScoreResponse
                 {
-                    BestScoreId = s.Id,
-                    PlayerId = s.PlayerId,
-                    BestScore = s.Value,
-                    PlayerName = s.Player.Name
+                    BestScoreId = sGroup.OrderByDescending(x => x.Value).First().Id,
+                    PlayerId = sGroup.Key,
+                    BestScore = sGroup.Max(x => x.Value),
+                    PlayerName = sGroup.OrderByDescending(x => x.Value).First().Player.Name
                 }
             );
 

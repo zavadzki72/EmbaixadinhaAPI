@@ -12,6 +12,7 @@ builder.Services.AddMvcCore().AddDataAnnotations();
 
 builder.Services.AddSwaggerConfiguration();
 builder.Services.AddAuthenticationConfiguration(builder.Configuration);
+builder.Services.AddCorsConfiguration();
 builder.Services.AddEntityFrameworkConfiguration(builder.Configuration);
 builder.Services.AddGeneralConfiguration();
 
@@ -30,6 +31,8 @@ app.UseAuthorization();
 app.UseSwaggerSetup();
 
 app.UseMiddleware(typeof(ErrorHandlingMiddleware));
+
+app.UseCorsConfiguration();
 
 app.MapControllers();
 
