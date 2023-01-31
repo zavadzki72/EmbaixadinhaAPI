@@ -22,6 +22,9 @@ jobs:
           dotnet-version: '7.x'
           include-prerelease: true
 
+      - name: Cd root project
+        run: cd .\Embaixadinha\
+
       - name: Build with dotnet
         run: dotnet build --configuration Release
 
