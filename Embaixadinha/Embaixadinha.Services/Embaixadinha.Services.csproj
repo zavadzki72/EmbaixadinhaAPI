@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Embaixadinha.Data\Embaixadinha.Data.csproj" />
     <ProjectReference Include="..\Embaixadinha.Models\Embaixadinha.Models.csproj" />
   </ItemGroup>
 

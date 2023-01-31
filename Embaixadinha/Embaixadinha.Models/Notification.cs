@@ -1,8 +1,8 @@
 ﻿namespace Embaixadinha.Models
 {
-    public class Notifications
+    public class Notification
     {
-        public Notifications(string key, string value)
+        public Notification(string key, string value)
         {
             Key = key;
             Value = value;

@@ -8,6 +8,9 @@ namespace Embaixadinha.API.Configurations
         public static void AddGeneralConfiguration(this IServiceCollection services)
         {
             services.AddScoped<ITokenService, TokenService>();
+
+            services.AddScoped<IPlayerService, PlayerService>();
+            services.AddScoped<IScoreService, ScoreService>();
         }
      }
 }
