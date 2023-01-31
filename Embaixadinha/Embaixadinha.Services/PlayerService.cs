@@ -16,7 +16,7 @@ namespace Embaixadinha.Services
             _applicationContext = applicationContext;
         }
 
-        public async Task<ServiceResult<Player>> Get(int id)
+        public async Task<ServiceResult<PlayerResponse>> Get(int id)
         {
             var player = await _applicationContext.Set<Player>()
                 .FirstOrDefaultAsync(x => x.Id == id);
@@ -24,13 +24,27 @@ namespace Embaixadinha.Services
             if (player == null)
             {
                 var notification = new Notification("PLAYER_NOT_FOUND", $"Não achamos um jogador com o ID {id} cadastrado.");
-                return ServiceResult<Player>.Error(new List<Notification> { notification });
+                return ServiceResult<PlayerResponse>.Error(new List<Notification> { notification });
             }
 
-            return ServiceResult<Player>.Ok(player, new List<Notification>());
+            return ServiceResult<PlayerResponse>.Ok(player.GetPlayer(), new List<Notification>());
         }
 
-        public async Task<ServiceResult<Player>> GetWithScores(int id)
+        public async Task<ServiceResult<PlayerResponse>> GetByIp(string ip)
+        {
+            var player = await _applicationContext.Set<Player>()
+                .FirstOrDefaultAsync(x => x.PlayerIp.Equals(ip));
+
+            if (player == null)
+            {
+                var notification = new Notification("PLAYER_NOT_FOUND", $"Não achamos um jogador com o IP {ip} cadastrado.");
+                return ServiceResult<PlayerResponse>.Error(new List<Notification> { notification });
+            }
+
+            return ServiceResult<PlayerResponse>.Ok(player.GetPlayer(), new List<Notification>());
+        }
+
+        public async Task<ServiceResult<PlayerWithScoresResponse>> GetWithScores(int id)
         {
             var player = await _applicationContext.Set<Player>()
                 .Include(x => x.Scores)
@@ -39,10 +53,10 @@ namespace Embaixadinha.Services
             if (player == null)
             {
                 var notification = new Notification("PLAYER_NOT_FOUND", $"Não achamos um jogador com o ID {id} cadastrado.");
-                return ServiceResult<Player>.Error(new List<Notification> { notification });
+                return ServiceResult<PlayerWithScoresResponse>.Error(new List<Notification> { notification });
             }
 
-            return ServiceResult<Player>.Ok(player, new List<Notification>());
+            return ServiceResult<PlayerWithScoresResponse>.Ok(player.GetPlayerWithScores(), new List<Notification>());
         }
 
         public async Task<ServiceResult<PlayerWithBestScoreResponse>> GetWithBestScore(int id)
@@ -69,7 +83,7 @@ namespace Embaixadinha.Services
                 return ServiceResult<int>.Error(new List<Notification> { notification });
             }
 
-            var player = new Player { Name = registerPlayerViewModel.Name };
+            var player = new Player(registerPlayerViewModel.Name, registerPlayerViewModel.PlayerIp);
             
             var createdPlayer = await _applicationContext.AddAsync(player);
             await _applicationContext.SaveChangesAsync();

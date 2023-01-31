@@ -15,6 +15,14 @@ namespace Embaixadinha.API.Controllers
             _scoreService = scoreService;
         }
 
+        [HttpGet("/best-players")]
+        public async Task<IActionResult> GetBestPlayers()
+        {
+            var result = await _scoreService.GetBestPlayers();
+
+            return ProcessResponse(result);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Register([FromBody] RegisterScoreViewModel registerScoreViewModel)
         {

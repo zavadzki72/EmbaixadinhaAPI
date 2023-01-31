@@ -3,6 +3,7 @@ using System;
 using Embaixadinha.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Embaixadinha.Data.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20230131123443_AddPlayerIp")]
+    partial class AddPlayerIp
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,7 +30,9 @@ namespace Embaixadinha.Data.Migrations
                         .HasColumnName("id");
 
                     b.Property<DateTime>("Created_At")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("datetime(6)")
+                        .HasDefaultValue(new DateTime(2023, 1, 31, 9, 34, 43, 355, DateTimeKind.Local).AddTicks(2233))
                         .HasColumnName("created_at");
 
                     b.Property<string>("Name")
@@ -37,11 +42,13 @@ namespace Embaixadinha.Data.Migrations
 
                     b.Property<string>("PlayerIp")
                         .IsRequired()
-                        .HasColumnType("varchar(255)")
+                        .HasColumnType("longtext")
                         .HasColumnName("player_ip");
 
                     b.Property<DateTime>("Updated_At")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("datetime(6)")
+                        .HasDefaultValue(new DateTime(2023, 1, 31, 9, 34, 43, 355, DateTimeKind.Local).AddTicks(2602))
                         .HasColumnName("updated_at");
 
                     b.HasKey("Id")
@@ -50,10 +57,6 @@ namespace Embaixadinha.Data.Migrations
                     b.HasIndex("Name")
                         .IsUnique()
                         .HasDatabaseName("ix_player_name");
-
-                    b.HasIndex("PlayerIp")
-                        .IsUnique()
-                        .HasDatabaseName("ix_player_player_ip");
 
                     b.ToTable("player", (string)null);
                 });
@@ -66,7 +69,9 @@ namespace Embaixadinha.Data.Migrations
                         .HasColumnName("id");
 
                     b.Property<DateTime>("Created_At")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("datetime(6)")
+                        .HasDefaultValue(new DateTime(2023, 1, 31, 9, 34, 43, 355, DateTimeKind.Local).AddTicks(6610))
                         .HasColumnName("created_at");
 
                     b.Property<int>("PlayerId")
@@ -74,7 +79,9 @@ namespace Embaixadinha.Data.Migrations
                         .HasColumnName("player_id");
 
                     b.Property<DateTime>("Updated_At")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("datetime(6)")
+                        .HasDefaultValue(new DateTime(2023, 1, 31, 9, 34, 43, 355, DateTimeKind.Local).AddTicks(7044))
                         .HasColumnName("updated_at");
 
                     b.Property<int>("Value")

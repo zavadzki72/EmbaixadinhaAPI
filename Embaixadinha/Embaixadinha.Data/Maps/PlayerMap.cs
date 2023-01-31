@@ -12,7 +12,13 @@ namespace Embaixadinha.Data.Maps
             builder.Property(x => x.Name)
                 .IsRequired();
 
+            builder.Property(x => x.PlayerIp)
+                .IsRequired();
+
             builder.HasIndex(x => x.Name)
+                .IsUnique();
+
+            builder.HasIndex(x => x.PlayerIp)
                 .IsUnique();
 
             base.Configure(builder);

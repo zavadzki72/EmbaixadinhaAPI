@@ -25,11 +25,9 @@ namespace Embaixadinha.Data.Maps
                 .IsRequired();
 
             builder.Property(x => x.Created_At)
-                .HasDefaultValue(DateTime.Now)
                 .IsRequired();
 
             builder.Property(x => x.Updated_At)
-                .HasDefaultValue(DateTime.Now)
                 .IsRequired();
         }
     }

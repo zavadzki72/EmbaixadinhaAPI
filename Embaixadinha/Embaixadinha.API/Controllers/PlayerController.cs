@@ -31,6 +31,14 @@ namespace Embaixadinha.API.Controllers
             return ProcessResponse(result);
         }
 
+        [HttpGet("ip/{ip}")]
+        public async Task<IActionResult> GetByIp([FromRoute] string ip)
+        {
+            var result = await _playerService.GetByIp(ip);
+
+            return ProcessResponse(result);
+        }
+
         [HttpGet("{id}/scores")]
         public async Task<IActionResult> GetWithScores([FromRoute] int id)
         {

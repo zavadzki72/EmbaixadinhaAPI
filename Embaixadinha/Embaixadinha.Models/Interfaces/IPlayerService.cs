@@ -6,8 +6,9 @@ namespace Embaixadinha.Models.Interfaces
     public interface IPlayerService
     {
         Task<ServiceResult<int>> Register(RegisterPlayerViewModel registerPlayerViewModel);
-        Task<ServiceResult<Player>> Get(int id);
-        Task<ServiceResult<Player>> GetWithScores(int id);
+        Task<ServiceResult<PlayerResponse>> Get(int id);
+        Task<ServiceResult<PlayerResponse>> GetByIp(string ip);
+        Task<ServiceResult<PlayerWithScoresResponse>> GetWithScores(int id);
         Task<ServiceResult<PlayerWithBestScoreResponse>> GetWithBestScore(int id);
     }
 }
