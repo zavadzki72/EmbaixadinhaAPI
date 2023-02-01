@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace Embaixadinha.API.Attributes
 {
@@ -19,9 +20,18 @@ namespace Embaixadinha.API.Attributes
             }
 
             var userAgent = context.HttpContext.Request.Headers.UserAgent;
-            if(string.IsNullOrWhiteSpace(userAgent) || userAgent.Contains("postman", StringComparer.OrdinalIgnoreCase))
+            if (!userAgent.Any())
             {
-                context.Result = new ForbidResult($"Postman requests are not allowed");
+                context.Result = new ForbidResult($"User agent is required");
+            }
+
+            foreach(var agent in userAgent)
+            {
+                if (agent.Contains("postman", StringComparison.OrdinalIgnoreCase))
+                {
+                    context.Result = new ForbidResult($"postman requests are not allowed");
+                    break;
+                }
             }
         }
     }
