@@ -22,7 +22,7 @@ namespace Embaixadinha.Services
             var query = (
                 from s in _applicationContext.Set<Score>().Include(x => x.Player)
                 group s by s.PlayerId into sGroup
-                orderby sGroup.Max(x => x.Value)
+                orderby sGroup.Max(x => x.Value) descending
                 select new PlayerWithBestScoreResponse
                 {
                     BestScoreId = sGroup.OrderByDescending(x => x.Value).First().Id,
