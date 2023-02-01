@@ -13,9 +13,10 @@ namespace Embaixadinha.API.Attributes
         public void OnAuthorization(AuthorizationFilterContext context)
         {
             string host = context.HttpContext.Request.Host.Host;
-            if (!AllowedHosts.Contains(host, StringComparer.OrdinalIgnoreCase))
+            string referer = context.HttpContext.Request.Headers.Referer;
+            if (!AllowedHosts.Contains(host, StringComparer.OrdinalIgnoreCase) || !AllowedHosts.Contains(referer, StringComparer.OrdinalIgnoreCase))
             {
-                context.Result = new ForbidResult($"Host {host} is not allowed");
+                context.Result = new ForbidResult($"Host is not allowed HOST: ({host}) REFERER: ({referer})");
             }
         }
     }
