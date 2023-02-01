@@ -26,6 +26,12 @@ namespace Embaixadinha.API.Middlewares
 
         private static Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
+            if (exception.Message.Contains("Host is not allowed"))
+            {
+                context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
+                return context.Response.WriteAsync("Host is not allowed");
+            }
+
             var errorModel = new
             {
                 Data = "error 500",
