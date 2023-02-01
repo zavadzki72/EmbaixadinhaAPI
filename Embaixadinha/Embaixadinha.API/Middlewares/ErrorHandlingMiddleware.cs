@@ -29,7 +29,7 @@ namespace Embaixadinha.API.Middlewares
             if (exception.Message.Contains("Host is not allowed"))
             {
                 context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
-                return context.Response.WriteAsync("Host is not allowed");
+                return context.Response.WriteAsync($"Host is not allowed, Message: {exception.Message}");
             }
 
             var errorModel = new

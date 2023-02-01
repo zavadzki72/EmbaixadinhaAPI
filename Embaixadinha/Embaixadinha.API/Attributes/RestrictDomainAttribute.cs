@@ -15,7 +15,7 @@ namespace Embaixadinha.API.Attributes
             string host = context.HttpContext.Request.Host.Host;
             if (!AllowedHosts.Contains(host, StringComparer.OrdinalIgnoreCase))
             {
-                context.Result = new ForbidResult("Host is not allowed");
+                context.Result = new ForbidResult($"Host {host} is not allowed");
             }
         }
     }

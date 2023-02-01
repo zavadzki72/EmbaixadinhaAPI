@@ -14,6 +14,7 @@ builder.Services
             "https://www.marccusz.com",
             "https://www.jogos.marccusz.com",
             "https://embaixadinha.marccusz.com",
+            "https://embaixadinha.marccusz.com/",
             "https://www.embaixadinha.marccusz.com",
             "localhost"
         ));
