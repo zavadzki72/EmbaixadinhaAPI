@@ -90,5 +90,24 @@ namespace Embaixadinha.Services
 
             return ServiceResult<int>.Created($"player/{createdPlayer.Entity.Id}", new List<Notification>());
         }
+
+        public async Task<ServiceResult<int>> Update(int id, UpdatePlayerViewModel updatePlayerViewModel)
+        {
+            var player = await _applicationContext.Set<Player>().FirstOrDefaultAsync(x => x.Id == id);
+
+            if (player == null)
+            {
+                var notification = new Notification("PLAYER_NOT_FOUND", $"Não achamos um jogador com o ID {id} cadastrado.");
+                return ServiceResult<int>.Error(new List<Notification> { notification });
+            }
+
+            player.Name = updatePlayerViewModel.Name;
+            player.Updated_At = DateTime.Now;
+
+            _applicationContext.Update(player);
+            await _applicationContext.SaveChangesAsync();
+
+            return ServiceResult<int>.Created($"player/{id}", new List<Notification>());
+        }
     }
 }

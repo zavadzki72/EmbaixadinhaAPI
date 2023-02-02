@@ -13,6 +13,7 @@ namespace Embaixadinha.API.Attributes
 
         public void OnAuthorization(AuthorizationFilterContext context)
         {
+#if !DEBUG
             string? referer = context.HttpContext.Request.Headers.Referer;
             if (!AllowedHosts.Contains(referer, StringComparer.OrdinalIgnoreCase))
             {
@@ -33,6 +34,7 @@ namespace Embaixadinha.API.Attributes
                     break;
                 }
             }
+#endif
         }
     }
 }

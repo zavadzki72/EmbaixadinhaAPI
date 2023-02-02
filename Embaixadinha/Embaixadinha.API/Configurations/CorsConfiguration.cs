@@ -9,7 +9,10 @@
             "https://www.marccusz.com",
             "https://www.jogos.marccusz.com",
             "https://embaixadinha.marccusz.com",
-            "https://www.embaixadinha.marccusz.com"
+            "https://www.embaixadinha.marccusz.com",
+            "https://altinha.marccusz.com",
+            "https://altinha.marccusz.com/",
+            "https://www.altinha.marccusz.com",
         };
 
         public static void AddCorsConfiguration(this IServiceCollection services)

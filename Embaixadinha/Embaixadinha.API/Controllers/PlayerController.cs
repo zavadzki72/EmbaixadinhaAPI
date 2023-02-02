@@ -15,14 +15,6 @@ namespace Embaixadinha.API.Controllers
             _playerService = playerService;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Register([FromBody] RegisterPlayerViewModel registerPlayerViewModel)
-        {
-            var result = await _playerService.Register(registerPlayerViewModel);
-
-            return ProcessResponse(result);
-        }
-
         [HttpGet("{id}")]
         public async Task<IActionResult> Get([FromRoute] int id)
         {
@@ -51,6 +43,22 @@ namespace Embaixadinha.API.Controllers
         public async Task<IActionResult> GetWithBestScore([FromRoute] int id)
         {
             var result = await _playerService.GetWithBestScore(id);
+
+            return ProcessResponse(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Register([FromBody] RegisterPlayerViewModel registerPlayerViewModel)
+        {
+            var result = await _playerService.Register(registerPlayerViewModel);
+
+            return ProcessResponse(result);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, [FromBody] UpdatePlayerViewModel updatePlayerViewModel)
+        {
+            var result = await _playerService.Update(id, updatePlayerViewModel);
 
             return ProcessResponse(result);
         }
