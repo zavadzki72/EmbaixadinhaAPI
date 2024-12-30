@@ -1,2 +1,2 @@
 # EmbaixadinhaAPI
-API do jogo de embaixadinhas
+API do jogo de embaixadinhas.
